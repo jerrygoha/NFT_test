@@ -1,4 +1,6 @@
-function customReducer (state = {}, action) {
+const initialState = {emoji:{f: null, e:null, m:null}}
+
+function customReducer (state = initialState, action) {
 
     //console.log(action.type);
     switch (action.type) {
@@ -7,6 +9,12 @@ function customReducer (state = {}, action) {
             return {
                 ...state,
                 sayHello: "Hello, " + action.payload
+            };
+
+        case 'EMOJI_CHANGED' :
+            return {
+                ...state,
+                emoji: action.payload
             };
 
         default : return state
