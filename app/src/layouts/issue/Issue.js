@@ -69,13 +69,24 @@ class Issue extends Component {
         this.setState({flag: false});
     }
 
+    mapOptions =  (e, name, emoji) => {
+        return <Radio key={e.value}
+                      name={name}
+                      value={e.value}
+                      inline={true}
+                      onChange={this.handleOptionClick}
+                      checked={emoji === e.value}>{e.name}</Radio>
+    }
+
     render() {
 
-        const face = FaceShape.map(f => {return <Radio key={f.value} name="f" value={f.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.f === f.value}>{f.name}</Radio>})
+        //const face = FaceShape.map(f => {return <Radio key={f.value} name="f" value={f.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.f === f.value}>{f.name}</Radio>})
+        //const eye = EyeColor.map(e => {return <Radio key={e.value} name="e" value={e.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.e === e.value}>{e.name}</Radio>})
+        //const mouth = MouthType.map(m => {return <Radio key={m.value} name="m" value={m.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.m === m.value}>{m.name}</Radio>})
 
-
-        const eye = EyeColor.map(e => {return <Radio key={e.value} name="e" value={e.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.e === e.value}>{e.name}</Radio>})
-        const mouth = MouthType.map(m => {return <Radio key={m.value} name="m" value={m.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.m === m.value}>{m.name}</Radio>})
+        const face = FaceShape.map(f => this.mapOptions(f, 'f', this.props.emoji.f));
+        const eye = EyeColor.map(e => this.mapOptions(e, 'e', this.props.emoji.e));
+        const mouth = MouthType.map(m => this.mapOptions(m, 'm', this.props.emoji.m));
 
         return (
             <Grid fluid={true} className="container">
