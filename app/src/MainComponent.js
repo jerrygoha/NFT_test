@@ -40,7 +40,8 @@ class MainComponent extends Component {
                 <button onClick={this.handleClick}>Total Supply</button>
                 <h2>Say Hello</h2>
                 <p>{this.props.hello}</p>
-                <input type="text" ref={(ref)=>this.input=ref}/> <button onClick={this.handleSayHello}>Say Hello!</button>
+                <input type="text"
+                       ref={(ref)=>this.input=ref}/> <button onClick={this.handleSayHello}>Say Hello!</button>
 
             </div>
         )
