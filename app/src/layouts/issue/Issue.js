@@ -2,16 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
 import {Grid, Row, Col, Panel, Alert} from 'react-bootstrap';
-import {Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
-import {FormGroup, Radio} from 'react-bootstrap';
+import {Radio, FormGroup, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import {FaceShape, EyeColor, MouthType} from '../../utils/emojiConst'
-import {Asset} from "./Asset";
-
 import '../../css/bootstrap/css/bootstrap.min.css';
-import '../../App.css'
-
+import {Asset} from "./Asset";
+import {FaceShape, EyeColor, MouthType} from "../../utils/emojiConst";
 
 class Issue extends Component {
 
@@ -23,49 +19,45 @@ class Issue extends Component {
         super(props);
 
         this.emoji = this.props.emoji;
-        this.resetObj = {f: null, e: null, m: null};
-
         this.contracts = context.drizzle.contracts;
         this.deedToken = this.contracts.DeedToken;
     }
 
-
     handleOptionClick = (e) => {
-
         this.setState({flag: false});
 
         let obj = {};
-        obj[e.target.name] = e.target.value; //image value
-        this.emoji = Object.assign({}, this.emoji, obj);
+        obj[e.target.name] = e.target.value;
+        this.emoji = {...this.emoji, ...obj};
 
-        this.props.onEmojiChange(this.emoji)
+        this.props.onEmojiChange(this.emoji);
     }
 
     handleCreateClick = () => {
+        let _length = Object.keys(this.emoji).length; //{f:,e:,m:}
 
-        let _length = Object.keys(this.props.emoji).length;
-        for (let m in this.props.emoji) {
-            if (this.props.emoji[m] === null) _length--;
+        for (let m in this.emoji) {
+            if (this.emoji[m] === null) _length--;
         }
 
         if (_length < 1) {
             this.setState({flag: true});
         } else {
-
-            const {f,e,m} = this.props.emoji;
-
+            const {f,e,m} = this.emoji;
             let x; let y; let z;
-            f != null?x=f:x=0;
+            f != null?x=f:x=0; //0=blank image
             e != null?y=e:y=0;
             m != null?z=m:z=0;
 
+            //contract call
             this.deedToken.methods.mint.cacheSend(x,y,z);
         }
     }
 
     handleResetClick = () => {
-        this.props.onEmojiChange(this.resetObj);
-        this.emoji = this.resetObj;
+        const resetObj = {f: null, e: null, m: null};
+        this.props.onEmojiChange(resetObj);
+        this.emoji = resetObj;
         this.setState({flag: false});
     }
 
@@ -79,11 +71,15 @@ class Issue extends Component {
     }
 
     render() {
+        /*
+        const face = FaceShape.map(f => {return <Radio value={f.value}
+                   checked={this.props.emoji.f === f.value} onChange={this.handleOptionClick}
+                   name="f" key={f.value} inline={true}>
+                {f.name}
+            </Radio>});
 
-        //const face = FaceShape.map(f => {return <Radio key={f.value} name="f" value={f.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.f === f.value}>{f.name}</Radio>})
-        //const eye = EyeColor.map(e => {return <Radio key={e.value} name="e" value={e.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.e === e.value}>{e.name}</Radio>})
-        //const mouth = MouthType.map(m => {return <Radio key={m.value} name="m" value={m.value} inline={true} onChange={this.handleOptionClick} checked={this.props.emoji.m === m.value}>{m.name}</Radio>})
-
+        const eye = EyeColor.map();
+        */
         const face = FaceShape.map(f => this.mapOptions(f, 'f', this.props.emoji.f));
         const eye = EyeColor.map(e => this.mapOptions(e, 'e', this.props.emoji.e));
         const mouth = MouthType.map(m => this.mapOptions(m, 'm', this.props.emoji.m));
@@ -92,7 +88,7 @@ class Issue extends Component {
             <Grid fluid={true} className="container">
                 <Row>
                     <Col>
-                        <Asset emoji={this.props.emoji}/>
+                        <Asset emoji={this.props.emoji} />
                     </Col>
                 </Row>
                 <Row>
@@ -116,24 +112,32 @@ class Issue extends Component {
                                 <AlertMsg flag={this.state.flag}/>
                                 <ButtonToolbar>
                                     <ButtonGroup justified>
-                                        <Button href="#" bsStyle="primary" bsSize="large" onClick={this.handleCreateClick}>
+                                        <Button href="#"
+                                                bsStyle="primary"
+                                                bsSize="large"
+                                                onClick={this.handleCreateClick}>
                                             Create
                                         </Button>
-                                        <Button href="#" bsStyle="info" bsSize="large" onClick={this.handleResetClick}>
+                                        <Button href="#"
+                                                bsStyle="info"
+                                                bsSize="large"
+                                                onClick={this.handleResetClick}>
                                             Reset
                                         </Button>
                                     </ButtonGroup>
                                 </ButtonToolbar>
-
                             </Panel.Body>
                         </Panel>
                     </Col>
                 </Row>
             </Grid>
         )
-
     }
 
+}
+
+Issue.contextTypes = {
+    drizzle: PropTypes.object
 }
 
 
@@ -148,11 +152,5 @@ function AlertMsg(props) {
     }
     return <br/>
 }
-
-
-Issue.contextTypes = {
-    drizzle: PropTypes.object
-}
-
 
 export default Issue

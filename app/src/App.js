@@ -14,7 +14,7 @@ class App extends Component {
       <DrizzleProvider options={drizzleOptions} store={store}>
         <LoadingContainer>
             <Router history={history}>
-                <Home />
+                <Home/>
             </Router>
         </LoadingContainer>
       </DrizzleProvider>
