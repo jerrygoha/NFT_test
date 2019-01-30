@@ -62,9 +62,10 @@ class Tokens extends Component {
                     asset = await this.deedToken.methods.allTokens(t).call();
                     //console.log(asset);
                     items.push({f: getImgSrc(asset.x, 'f'),
-                        e: getImgSrc(asset.y, 'e'),
-                        m: getImgSrc(asset.z, 'm'), tokenId: t, approved: apr});
-
+                                e: getImgSrc(asset.y, 'e'),
+                                m: getImgSrc(asset.z, 'm'),
+                                tokenId: t,
+                                approved: apr});
                 }
             }
             this.setState({items});

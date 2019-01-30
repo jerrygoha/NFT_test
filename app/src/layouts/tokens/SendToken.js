@@ -20,7 +20,8 @@ class SendToken extends Component {
 
         if (buttonType === 'T') { //transferFrom
             this.deedToken.methods.transferFrom.cacheSend(from, to, tokenId);
-        } else if (buttonType === "A") {
+
+        } else if (buttonType === "A") { //approve
             this.deedToken.methods.approve.cacheSend(to, tokenId);
         }
 
