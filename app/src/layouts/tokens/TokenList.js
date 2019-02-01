@@ -24,7 +24,7 @@ export function TokenList(props) {
                                 <p className="Token-desc">
                                     Token ID: EMJ-{e.tokenId}
                                     <br/>
-                                    {e.approved!=0?`Approved: ${e.approved}`:''}
+                                    {e.approved != 0?`Approved: ${e.approved}`:''}
                                 </p>
                             </div>
                         </Panel.Body>
@@ -56,9 +56,9 @@ export function TokenList(props) {
     );
 
     if (tokenList.length === 0) {
-        tokenList = <Alert bsStyle="warning">
-            <strong>🔔 You have no token. Create your own token!</strong>
-        </Alert>;
+        return (<Alert bsStyle="warning">
+            <strong><span role="img" aria-label="Bell">🔔</span> You have no token. Create your own token!</strong>
+        </Alert>);
     }
 
     return tokenList;

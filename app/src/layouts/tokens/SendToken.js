@@ -37,7 +37,7 @@ class SendToken extends Component {
                             <InputGroup.Addon>@</InputGroup.Addon>
                             <FormControl type="text" label="Text"
                                          placeholder="Enter Ethereum address"
-                                         style={{width: "360px"}}
+                                         style={{width: "366px"}}
                                          inputRef={ref => this.toAddress = ref}/>
                         </InputGroup>{' '}
                         <Button type="button" onClick={this.handleSubmit}>Submit</Button>

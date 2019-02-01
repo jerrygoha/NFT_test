@@ -8,11 +8,13 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import '../../css/bootstrap/css/bootstrap.min.css';
 import {Asset} from "./Asset";
 import {FaceShape, EyeColor, MouthType} from "../../utils/emojiConst";
+import TxInfo from "./TxInfo";
 
 class Issue extends Component {
 
     state = {
-        flag: false
+        flag : false,
+        stackId : null
     };
 
     constructor(props, context) {
@@ -51,6 +53,9 @@ class Issue extends Component {
 
             //contract call
             this.deedToken.methods.mint.cacheSend(x,y,z);
+            //use stackId for getting transaction hash
+            //const stackId = this.deedToken.methods.mint.cacheSend(x,y,z);
+            //this.setState({stackId});
         }
     }
 
@@ -80,6 +85,7 @@ class Issue extends Component {
 
         const eye = EyeColor.map();
         */
+
         const face = FaceShape.map(f => this.mapOptions(f, 'f', this.props.emoji.f));
         const eye = EyeColor.map(e => this.mapOptions(e, 'e', this.props.emoji.e));
         const mouth = MouthType.map(m => this.mapOptions(m, 'm', this.props.emoji.m));
@@ -127,6 +133,9 @@ class Issue extends Component {
                                     </ButtonGroup>
                                 </ButtonToolbar>
                             </Panel.Body>
+                            <Panel.Footer>
+                                <TxInfo stackId={this.state.stackId}/>
+                            </Panel.Footer>
                         </Panel>
                     </Col>
                 </Row>
