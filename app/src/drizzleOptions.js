@@ -1,4 +1,6 @@
 import DeedToken from "./contracts/DeedToken.json";
+import DeedIPFSToken from "./contracts/DeedIPFSToken.json";
+
 
 const options = {
     web3: {
@@ -8,9 +10,10 @@ const options = {
             url: "ws://127.0.0.1:9545",
         },
     },
-    contracts: [DeedToken],
+    contracts: [DeedToken, DeedIPFSToken],
     events: {
         DeedToken: ["Transfer", "Approval", "ApprovalForAll"],
+        DeedIPFSToken: ["Transfer", "Approval", "ApprovalForAll"]
     },
     polls: {
         accounts: 1500,
