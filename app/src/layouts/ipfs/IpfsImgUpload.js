@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
@@ -8,10 +8,10 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import 'filepond/dist/filepond.min.css';
 
-import logo from './ipfs-logo.png'
+import logo from './ipfs-logo.png';
 import ipfs from '../../utils/ipfs';
-import '../../css/filepond-custom.css'
-
+import '../../css/filepond-custom.css';
+import '../../App.css';
 
 class IpfsImgUpload extends Component {
 

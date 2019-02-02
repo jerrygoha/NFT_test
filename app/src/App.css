@@ -43,6 +43,11 @@
   margin-right: 30px;
 }
 
+.Menu-sub-item {
+  font-size: medium;
+  font-weight: bold;
+}
+
 .Login-item {
   height: 40px;
   margin-right: 20px;
@@ -62,8 +67,22 @@
   width: 100px;
 }
 
+.Ipfs-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: auto;
+}
+
 .Token-desc {
   position: absolute;
   left: 150px;
 }
 
+/* IPFS image view */
+.img-view {
+  height:25%;
+  width:25%;
+  padding: 5px 40px 20px 10px; /* TOP RIGHT LEFT BOTTOM*/
+}
