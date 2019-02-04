@@ -27,9 +27,7 @@ export function IpfsTokenList(props) {
                             </div>
                         </Panel.Body>
                         <Panel.Footer>
-                            <SendToken flag={props.flag && props.tokenId === e.tokenId}
-                                       tokenId={props.tokenId}
-                                       buttonType={props.buttonType}/>
+                            <SendToken />
                             <ButtonToolbar>
                                 <ButtonGroup justified>
                                     <Button href="#" bsStyle="primary"

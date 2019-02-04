@@ -10,10 +10,7 @@ import '../../App.css'
 class IpfsTokens extends Component {
 
     state = {
-        items : [],
-        flag: false,
-        tokenId: null,
-        buttonType: null
+        items : []
     }
 
     constructor(props, context) {
@@ -33,10 +30,10 @@ class IpfsTokens extends Component {
     }
 
     showInputAddress = (tokenId, buttonType) => {
-        if (!this.state.flag) {
-            this.setState({flag: true, tokenId, buttonType});
+        if (!this.props.selectedToken.flag) {
+            this.props.onSelectToken({flag: true, tokenId, buttonType});
         } else {
-            this.setState({flag: false, tokenId, buttonType});
+            this.props.onSelectToken({flag: false, tokenId, buttonType});
         }
     }
 
@@ -86,9 +83,6 @@ class IpfsTokens extends Component {
         return (
             <Grid fluid={true} className="container">
                 <IpfsTokenList items={this.state.items}
-                               flag={this.state.flag}
-                               tokenId={this.state.tokenId}
-                               buttonType={this.state.buttonType}
                                handleTransfer={this.handleTransfer}
                                handleApprove={this.handleApprove}
                                handleRemove={this.handleRemove}

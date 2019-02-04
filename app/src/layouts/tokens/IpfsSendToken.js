@@ -6,16 +6,18 @@ class IpfsSendToken extends Component {
 
     constructor(props, context) {
         super(props);
-        this.state = context.drizzle.store.getState();
+        this.drizzleStore = context.drizzle.store;
         this.contracts = context.drizzle.contracts;
         this.deedIpfsToken = this.contracts.DeedIPFSToken;
     }
 
     handleSubmit = () => {
 
-        const tokenId = this.props.tokenId;
-        const buttonType = this.props.buttonType;
-        const from = this.state.accounts[0];
+        const state = this.drizzleStore.getState();
+
+        const tokenId = state.customReducer.selectedToken.tokenId;
+        const buttonType = state.customReducer.selectedToken.buttonType;
+        const from = state.accounts[0];
         const to = this.toAddress.value;
 
         if (buttonType === 'T') { //transferFrom
@@ -29,7 +31,9 @@ class IpfsSendToken extends Component {
 
     render () {
 
-        if (this.props.flag) {
+        const state = this.drizzleStore.getState();
+
+        if (state.customReducer.selectedToken.flag) {
             return (
                 <Form inline style={{marginBottom: "5px"}}>
                     <FormGroup controlId="addr">
