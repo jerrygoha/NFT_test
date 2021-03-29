@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Grid} from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 
-import {getImgSrc} from "../../utils/emojiUtils";
-import {TokenList} from "./TokenList";
+import { getImgSrc } from '../../utils/emojiUtils';
+import { TokenList } from './TokenList';
 import '../../css/bootstrap/css/bootstrap.min.css';
 import '../../App.css'
 
@@ -20,8 +20,6 @@ class Tokens extends Component {
         super(props);
         this.contracts = context.drizzle.contracts;
         this.deedToken = this.contracts.DeedToken;
-
-        this.isTokenList = true;
     }
 
     handleTransfer = (e) => {
@@ -48,28 +46,27 @@ class Tokens extends Component {
 
     getTokenList = async (event) => {
 
-        if (this.isTokenList) {
-            let t = 0, apr = 0, asset = null;
-            let items = [];
-            const totalSupply = await this.deedToken.methods.totalSupply().call();
+        let t = 0, apr = 0, asset = null;
+        let items = [];
+        const totalSupply = await this.deedToken.methods.totalSupply().call();
 
-            for (let j=0; j<totalSupply; j++) {
+        for (let j=0; j<totalSupply; j++) {
 
-                t = await this.deedToken.methods.tokenByIndex(j).call();
-                apr = await this.deedToken.methods.getApproved(t).call();
+            t = await this.deedToken.methods.tokenByIndex(j).call();
+            apr = await this.deedToken.methods.getApproved(t).call();
 
-                if (await this.deedToken.methods.ownerOf(t).call() === this.props.accounts[0]) {
-                    asset = await this.deedToken.methods.allTokens(t).call();
-                    //console.log(asset);
-                    items.push({f: getImgSrc(asset.x, 'f'),
-                                e: getImgSrc(asset.y, 'e'),
-                                m: getImgSrc(asset.z, 'm'),
-                                tokenId: t,
-                                approved: apr});
-                }
+            if (await this.deedToken.methods.ownerOf(t).call() === this.props.accounts[0]) {
+                asset = await this.deedToken.methods.allTokens(t).call();
+                //console.log(asset);
+                items.push({f: getImgSrc(asset.x, 'face'),
+                            e: getImgSrc(asset.y, 'eyes'),
+                            m: getImgSrc(asset.z, 'mouth'),
+                            tokenId: t,
+                            approved: apr});
             }
-            this.setState({items});
         }
+        this.setState({items});
+
 
         if (event !== undefined) {
             console.log(event.returnValues);
@@ -78,14 +75,15 @@ class Tokens extends Component {
     }
 
     componentWillUnmount() {
-        this.isTokenList = false;
+        this.eventTransfer.unsubscribe();
     }
 
     async componentDidMount() {
+        
         await this.getTokenList();
-
         //event listening
-        this.deedToken.events.Transfer().on("data", (event) => this.getTokenList(event));
+        this.eventTransfer = this.deedToken.events.Transfer().on("data", (event) => this.getTokenList(event));
+        //console.log(this.eventTransfer);
     }
 
     render() {

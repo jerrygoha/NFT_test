@@ -1,15 +1,16 @@
-import createHistory from 'history/createBrowserHistory'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga'
-import { generateContractsInitialState } from 'drizzle'
+import { generateContractsInitialState } from '@drizzle/store'
 
 import drizzleOptions from './drizzleOptions'
 import reducer from './reducer'
 import rootSaga from './rootSaga'
 
-const history = createHistory()
-const routingMiddleware = routerMiddleware(history)
+
+// Redux DevTools
+// Composes functions from right to left.
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const sagaMiddleware = createSagaMiddleware()
 
 const initialState = {
@@ -19,16 +20,13 @@ const initialState = {
 const store = createStore(
     reducer,
     initialState,
-    compose(
+    composeEnhancers (
         applyMiddleware(
-            routingMiddleware,
             sagaMiddleware
         )
     )
 )
 
 sagaMiddleware.run(rootSaga)
-
-export { history }
 
 export default store

@@ -1,9 +1,10 @@
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 import "./ERC721.sol";
 import "./ERC165.sol";
 import "./SafeMath.sol";
 import "./Address.sol";
+import "./Strings.sol";
 
 contract DeedIPFSToken is ERC721, ERC165 {
 
@@ -171,7 +172,7 @@ contract DeedIPFSToken is ERC721, ERC165 {
         allValidTokenIds.push(tokenId);
 
         //Token Metadata
-        tokenURIs[tokenId] = ipfsHash;
+        tokenURIs[tokenId] =  Strings.strConcat(baseTokenURI(), "QmdDW36bvr2W6ua4FxnT8bKysXhYEUo7QbLTbkGW4Foxr8");
 
         emit Transfer(address(0), msg.sender, tokenId);
     }
@@ -225,6 +226,13 @@ contract DeedIPFSToken is ERC721, ERC165 {
         //allValidTokenIndex is private so can't access invalid token by index programmatically
         allValidTokenIndex[tokenIdToRemove] = 0;
     }
+
+    function baseTokenURI() public pure returns (string memory) {
+        return "https://gateway.ipfs.io/ipfs/";
+    }
+
+
+
 
     //ERC721Enumerable
     function totalSupply() public view returns (uint) {

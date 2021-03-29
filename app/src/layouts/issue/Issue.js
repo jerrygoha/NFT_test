@@ -5,16 +5,16 @@ import {Grid, Row, Col, Panel, Alert} from 'react-bootstrap';
 import {Radio, FormGroup, Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import '../../css/bootstrap/css/bootstrap.min.css';
-import {Asset} from "./Asset";
+import Asset from "./Asset";
 import {FaceShape, EyeColor, MouthType} from "../../utils/emojiConst";
 import TxInfo from "./TxInfo";
+
+import '../../css/bootstrap/css/bootstrap.min.css';
 
 class Issue extends Component {
 
     state = {
-        flag : false,
-        stackId : null
+        flag : false
     };
 
     constructor(props, context) {
@@ -52,16 +52,15 @@ class Issue extends Component {
             m != null?z=m:z=0;
 
             //contract call
-            this.deedToken.methods.mint.cacheSend(x,y,z);
-            //use stackId for getting transaction hash
-            //const stackId = this.deedToken.methods.mint.cacheSend(x,y,z);
-            //this.setState({stackId});
+            const stackId = this.deedToken.methods.mint.cacheSend(x,y,z);
+            this.props.onEmojiCreate(stackId);
         }
     }
 
     handleResetClick = () => {
         const resetObj = {f: null, e: null, m: null};
         this.props.onEmojiChange(resetObj);
+        this.props.onEmojiCreate(null);
         this.emoji = resetObj;
         this.setState({flag: false});
     }
@@ -102,7 +101,7 @@ class Issue extends Component {
                         <Panel bsStyle="success">
                             <Panel.Heading>
                                 <Panel.Title>
-                                    <Glyphicon glyph="file" /> Token Creation
+                                    <Glyphicon glyph="expand" /> Token Creation
                                 </Panel.Title>
                             </Panel.Heading>
                             <Panel.Body className="custom-align-center">
@@ -134,7 +133,7 @@ class Issue extends Component {
                                 </ButtonToolbar>
                             </Panel.Body>
                             <Panel.Footer>
-                                <TxInfo stackId={this.state.stackId}/>
+                                <TxInfo />
                             </Panel.Footer>
                         </Panel>
                     </Col>

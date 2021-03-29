@@ -1,5 +1,5 @@
 import Tokens from './Tokens'
-import { drizzleConnect } from 'drizzle-react'
+import { drizzleConnect } from '@drizzle/react-plugin'
 
 const mapStateToProps = state => {
     return {
@@ -8,7 +8,6 @@ const mapStateToProps = state => {
         drizzleStatus: state.drizzleStatus
     }
 }
-
 
 const TokensContainer = drizzleConnect(Tokens, mapStateToProps);
 

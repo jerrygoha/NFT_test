@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { DrizzleProvider } from "drizzle-react";
-import {LoadingContainer} from "drizzle-react-components";
-import { Router } from 'react-router';
+import { DrizzleProvider } from "@drizzle/react-plugin";
+import { LoadingContainer } from "@drizzle/react-components";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 import drizzleOptions from "./drizzleOptions";
-import store, {history} from "./store";
+import store from "./store";
 import Home from "./Home";
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <DrizzleProvider options={drizzleOptions} store={store}>
         <LoadingContainer>
-            <Router history={history}>
+            <Router>
                 <Home/>
             </Router>
         </LoadingContainer>

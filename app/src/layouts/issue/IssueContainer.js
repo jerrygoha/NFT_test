@@ -1,6 +1,6 @@
 import Issue from './Issue'
-import { drizzleConnect } from 'drizzle-react'
-import {emojiChangeAction} from '../../actions/customAction'
+import { drizzleConnect } from '@drizzle/react-plugin'
+import {emojiChangeAction, emojiCreateAction} from '../../actions/customAction'
 
 const mapStateToProps = state => {
     return {
@@ -14,7 +14,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => (
     {
-        onEmojiChange: (params) => {dispatch(emojiChangeAction(params))}
+        onEmojiChange: (params) => {dispatch(emojiChangeAction(params))},
+        onEmojiCreate: (params) => {dispatch(emojiCreateAction(params))},
     }
 );
 

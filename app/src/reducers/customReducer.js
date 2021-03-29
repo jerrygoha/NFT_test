@@ -1,4 +1,6 @@
-const initialState = {emoji:{f: null, e:null, m:null}, selectedToken: {flag:false, tokenId: null, buttonType: null}}
+const initialState = {emoji:{f: null, e:null, m:null},
+                      selectedToken: {flag:false, tokenId: null, buttonType: null},
+                      stackId: null}
 
 function customReducer (state = initialState, action) {
 
@@ -15,6 +17,12 @@ function customReducer (state = initialState, action) {
             return {
                 ...state,
                 emoji: action.payload
+            };
+
+        case  'EMOJI_CREATE' :
+            return {
+                ...state,
+                stackId: action.payload
             };
 
         case 'SELECT_TOKEN' :

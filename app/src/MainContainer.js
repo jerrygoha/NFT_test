@@ -1,4 +1,4 @@
-import { drizzleConnect } from "drizzle-react";
+import { drizzleConnect } from "@drizzle/react-plugin";
 import MainComponent from "./MainComponent";
 import {sayHelloAction} from "./actions/customAction";
 

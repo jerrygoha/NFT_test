@@ -8,14 +8,16 @@ class TxInfo extends Component {
         this.drizzle = context.drizzle;
     }
 
+    //use stackId for getting transaction hash
     render() {
 
         const state = this.drizzle.store.getState();
+        const stackId = state.customReducer.stackId
 
-        if (this.props.stackId !== undefined && this.props.stackId !== null) {
+        if (stackId !== undefined && stackId !== null) {
             return (
                 <p>
-                    {state.transactionStack[this.props.stackId]}
+                    {state.transactionStack[stackId]}
                 </p>
             )
         } else {

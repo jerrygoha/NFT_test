@@ -20,8 +20,12 @@
     "url": "https://github.com/truffle-box/drizzle-box/issues"
   },
   "homepage": "https://github.com/truffle-box/drizzle-box#readme",
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.0.33"
+  },
   "dependencies": {
-    "openzeppelin-solidity": "^2.1.1"
+    "react-bootstrap": "^1.5.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
   }
-
 }

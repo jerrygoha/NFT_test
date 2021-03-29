@@ -2,8 +2,9 @@ import React from "react";
 import {Alert, Col, Image, Panel, Row} from "react-bootstrap";
 import {Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
 import Glyphicon from "react-bootstrap/lib/Glyphicon";
-
 import SendToken from "./SendToken";
+
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function TokenList(props) {
 
@@ -24,7 +25,7 @@ export function TokenList(props) {
                                 <p className="Token-desc">
                                     Token ID: EMJ-{e.tokenId}
                                     <br/>
-                                    {e.approved != 0?`Approved: ${e.approved}`:''}
+                                    {e.approved !== ZERO_ADDRESS?`Approved: ${e.approved}`:''}
                                 </p>
                             </div>
                         </Panel.Body>
